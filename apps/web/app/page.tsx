@@ -11,10 +11,10 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Main content */}
-      <div className="flex-1 flex flex-col items-center justify-center p-6 pt-16">
-        <div className="max-w-3xl w-full text-center">
+      <div className="flex-1 flex flex-col items-center justify-center p-6">
+        <div className="max-w-3xl w-full text-center -mt-12">
           {/* Indiana Jones quote */}
-          <p className="text-3xl md:text-4xl font-bold mb-12">It belongs in a museum!</p>
+          <p className="text-3xl md:text-4xl font-bold mb-8 text-black">It belongs in a museum!</p>
 
           {/* Hero graphic */}
           <Image
@@ -22,22 +22,22 @@ export default function LandingPage() {
             alt="Vintage computer with Indiana Jones hat and whip"
             width={500}
             height={300}
-            className="mx-auto mb-12"
+            className="mx-auto mb-8"
             priority
           />
 
           {/* Logo/Title */}
-          <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-bold mb-3 tracking-tight text-black">
             Labs
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl mb-6 opacity-60">
+          <p className="text-xl md:text-2xl mb-5 text-gray-600">
             Digital Archaeology
           </p>
 
           {/* Description */}
-          <p className="text-base md:text-lg mb-12 opacity-50 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg mb-8 text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Recover and convert data from legacy file formats into modern, accessible formats.
             Upload historic database, spreadsheet, and word processing files from the 1970s-2000s
             for automatic conversion and data extraction.
@@ -55,12 +55,12 @@ export default function LandingPage() {
       </div>
 
       {/* Supported Formats Footer */}
-      <div className="py-8 px-6">
+      <div className="py-12 px-6">
         <div className="max-w-6xl mx-auto text-center">
-          <p className="text-xs font-mono text-gray-400 uppercase tracking-wider">
+          <p className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-3">
             Currently Supported Formats
           </p>
-          <p className="text-sm font-mono text-gray-400 mt-2">
+          <p className="text-base font-mono text-gray-600">
             {SUPPORTED_FORMATS.map((format, idx) => (
               <span key={idx}>
                 {format.name} {format.ext} • {format.era}
