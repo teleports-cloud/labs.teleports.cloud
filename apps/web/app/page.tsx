@@ -87,7 +87,7 @@ export default function LandingPage() {
       {/* Build Status Badges */}
       <div className="absolute top-4 right-4 flex gap-2 z-10"> {/* Positioning badges */}
         <a href="https://vercel.com/teleports-cloud-team/labs-teleports-cloud-web/deployments" target="_blank" rel="noopener noreferrer">
-          <img src="https://vercel.com/teleports-cloud-team/labs-teleports-cloud-web/badge" alt="Vercel Deploy Status" className="h-6" />
+          <img src="https://vercel.com/teleports-cloud-team/prj_A9oY7UnBUFrE41MOboCq4y1ryH30/badge" alt="Vercel Deploy Status" className="h-6" />
         </a>
         <a href="https://dashboard.render.com/web/srv-d4mk1kruibrs738liamg" target="_blank" rel="noopener noreferrer">
           <img src="https://api.render.com/v1/badges/services/srv-d4mk1kruibrs738liamg/status.svg" alt="Render Deploy Status" className="h-6" />
