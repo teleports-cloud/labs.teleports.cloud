@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(pip3 install:*)",
+      "Bash(kill:*)",
+      "Bash(open spreadsheet_summary.html)",
+      "Bash(open scientific_summary_report.html)",
+      "Bash(open:*)",
+      "Bash(tree:*)",
+      "Bash(find:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(brew install:*)",
+      "Bash(sort:*)",
+      "WebSearch",
+      "Bash(xxd:*)",
+      "Bash(format_analysis_output.txt)",
+      "Bash(chmod:*)",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --app --no-src-dir --import-alias \"@/*\" --use-pnpm)",
+      "Bash(pkill:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm install)",
+      "Bash(vercel login:*)",
+      "Bash(vercel --yes:*)",
+      "Bash(vercel:*)",
+      "Bash(xargs rm:*)",
+      "Bash(./launch-tui.sh:*)",
+      "Bash(bash launch-tui.sh:*)",
+      "Bash(xargs:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

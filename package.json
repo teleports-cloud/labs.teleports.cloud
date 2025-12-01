@@ -1,0 +1,14 @@
+{
+  "name": "smartware-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SmartWare II Data Recovery - Dr. J. Carter Research Data (1991-1992)",
+  "scripts": {
+    "dev": "pnpm --filter @smartware/web dev",
+    "build": "pnpm --filter @smartware/web build",
+    "start": "pnpm --filter @smartware/web start",
+    "lint": "pnpm --filter @smartware/web lint"
+  },
+  "author": "Blake Carter",
+  "license": "MIT"
+}
