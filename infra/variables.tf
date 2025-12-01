@@ -11,7 +11,7 @@ variable "vercel_project_id" {
 }
 
 variable "github_repo" {
-  description = "GitHub repository name (e.g., username/repo)"
+  description = "GitHub repository name (e.g., username/repo) - Now pointing to the mirrored repo"
   type        = string
   default     = "roland-id-au/labs.teleports.cloud"
 }
