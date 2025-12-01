@@ -160,7 +160,10 @@ export default function TerminalPage() {
         const response = await fetch(getUploadUrl(), {
           method: "POST",
           body: formData,
-          credentials: "include",
+          headers: {
+            "X-Session-ID": currentSessionId, // Send session_id as a custom header
+          },
+          // credentials: "include", // Not needed if session_id is sent via header
         });
 
         if (!response.ok) {

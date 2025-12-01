@@ -68,7 +68,7 @@ async def create_session():
 @app.post("/api/upload")
 async def upload_file(
     file: UploadFile = File(...),
-    session_id: Optional[str] = Cookie(None)
+    session_id: str = Header(...)
 ):
     """Upload a file to the session"""
     if not session_id:
