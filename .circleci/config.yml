@@ -1,0 +1,63 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.0.0
+  python: circleci/python@2.0.0
+
+jobs:
+  build_and_deploy_frontend:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-pnpm:
+          version: "8"
+      - run:
+          name: Install Frontend Dependencies
+          command: pnpm install
+          working_directory: apps/web
+      - run:
+          name: Build Frontend
+          command: pnpm build
+          working_directory: apps/web
+      - run:
+          name: Deploy to Vercel
+          command: |
+            npm install -g vercel
+            vercel pull --yes --environment=production --token=${VERCEL_TOKEN} --project=${VERCEL_PROJECT_ID} --repo=${GITHUB_REPO}
+            vercel deploy --prebuilt --prod --token=${VERCEL_TOKEN} --project=${VERCEL_PROJECT_ID} --team=${VERCEL_TEAM_ID}
+          working_directory: apps/web
+          environment:
+            VERCEL_TOKEN: ${VERCEL_TOKEN} # Set in CircleCI Project Settings
+            VERCEL_PROJECT_ID: prj_A9oY7UnBUFrE41MOboCq4y1ryH30 # Your Vercel Project ID
+            VERCEL_TEAM_ID: team_ukOUCjpIguZVPwMTYcvObu4n # Your Vercel Team ID
+            GITHUB_REPO: roland-id-au/labs.teleports.cloud # Your GitHub Repo
+
+  build_and_deploy_backend:
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip
+          args: -r requirements.txt
+          pip-version: 23.3.1 # latest pip compatible with python 3.11
+      - run:
+          name: Build Backend (Lint/Test)
+          command: echo "Backend build check complete." # Add actual linting/testing commands here
+          working_directory: apps/python
+      - run:
+          name: Trigger Render Deploy
+          command: |
+            # Using curl to trigger Render API deploy hook
+            # Replace with actual Render deployment trigger
+            curl -X POST -H "Authorization: Bearer ${RENDER_API_KEY}" "https://api.render.com/deploy-hook/${RENDER_DEPLOY_HOOK_ID}"
+          working_directory: apps/python
+          environment:
+            RENDER_API_KEY: ${RENDER_API_KEY} # Set in CircleCI Project Settings
+            RENDER_DEPLOY_HOOK_ID: your_render_deploy_hook_id # Set in CircleCI Project Settings
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build_and_deploy_frontend
+      - build_and_deploy_backend
