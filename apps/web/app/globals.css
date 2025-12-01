@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 14% 10%;
+    --foreground: 210 40% 98%;
+    --card: 222 14% 12%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 14% 12%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 14% 10%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 217 91% 60%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Terminal aesthetic */
+.terminal {
+  background: linear-gradient(
+    to bottom,
+    rgb(18, 18, 18),
+    rgb(24, 24, 24)
+  );
+  color: rgb(224, 224, 224);
+  font-feature-settings: "liga" 0;
+}
+
+.terminal-header {
+  background: linear-gradient(
+    to bottom,
+    rgb(1, 120, 212),
+    rgb(1, 108, 195)
+  );
+  color: rgb(255, 255, 255);
+  border-bottom: 2px solid rgb(1, 90, 170);
+}
+
+.terminal-panel {
+  background: rgb(39, 39, 39);
+  border: 1px solid rgb(1, 120, 212);
+}
+
+.terminal-button {
+  background: rgb(39, 39, 39);
+  border: 1px solid rgb(1, 120, 212);
+  color: rgb(224, 224, 224);
+  transition: all 0.2s;
+}
+
+.terminal-button:hover {
+  background: rgb(1, 120, 212);
+  color: rgb(255, 255, 255);
+}
+
+.terminal-button-primary {
+  background: rgb(1, 120, 212);
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(1, 120, 212);
+}
+
+.terminal-button-primary:hover {
+  background: rgb(1, 140, 230);
+  border-color: rgb(1, 140, 230);
+}
+
+.terminal-input {
+  background: rgb(27, 27, 27);
+  border: 1px solid rgb(73, 82, 89);
+  color: rgb(224, 224, 224);
+}
+
+.terminal-input:focus {
+  outline: none;
+  border-color: rgb(1, 120, 212);
+  box-shadow: 0 0 0 1px rgb(1, 120, 212);
+}
+
+/* Animations */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s infinite;
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.scan-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(1, 120, 212, 0.3),
+    transparent
+  );
+  animation: scan-line 8s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
