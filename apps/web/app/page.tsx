@@ -13,18 +13,23 @@ export default function LandingPage() {
   const router = useRouter();
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null); // New state for errors
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function handleFiles(files: FileList) {
     if (files.length === 0) return;
 
     setIsUploading(true);
+    setUploadError(null); // Clear previous errors
 
     try {
       // Create session
       const sessionResponse = await fetch(getCreateSessionUrl(), {
         method: "POST",
       });
+      if (!sessionResponse.ok) {
+        throw new Error(`Failed to create session: ${sessionResponse.statusText}`);
+      }
       const sessionData = await sessionResponse.json();
       const sessionId = sessionData.session_id;
 
@@ -38,11 +43,10 @@ export default function LandingPage() {
         type: file.type,
       }));
       localStorage.setItem('pendingUploadFiles', JSON.stringify(fileData));
-      localStorage.setItem('sessionIdForUpload', sessionId); // Also store sessionId for terminal page
+      localStorage.setItem('sessionIdForUpload', sessionId);
 
-      // Store the actual File objects in a way that terminal can access (e.g., using a global object or more advanced state management)
-      // For a quick fix, we can attach the FileList directly to the window object or use a more robust state management.
-      // Let's attach to window for simplicity for now.
+      // Store the actual File objects (FileList) on the window object temporarily
+      // This is a workaround for passing FileList across pages via localStorage, which only accepts serializable data.
       (window as any).pendingUploadFilesRaw = files;
 
 
@@ -50,7 +54,9 @@ export default function LandingPage() {
       router.push("/terminal");
     } catch (error) {
       console.error("Upload failed:", error);
-      setIsUploading(false);
+      setUploadError(error instanceof Error ? error.message : "An unknown error occurred during upload.");
+    } finally {
+      setIsUploading(false); // Ensure isUploading is reset even on error
     }
   }
 
@@ -77,7 +83,17 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="h-screen bg-white flex flex-col overflow-hidden">
+    <div className="h-screen bg-white flex flex-col overflow-hidden relative"> {/* Added relative positioning */}
+      {/* Build Status Badges */}
+      <div className="absolute top-4 right-4 flex gap-2 z-10"> {/* Positioning badges */}
+        <a href="https://vercel.com/teleports-cloud-team/labs-teleports-cloud-web/deployments" target="_blank" rel="noopener noreferrer">
+          <img src="https://vercel.com/teleports-cloud-team/labs-teleports-cloud-web/badge" alt="Vercel Deploy Status" className="h-6" />
+        </a>
+        <a href="https://dashboard.render.com/web/srv-d4mk1kruibrs738liamg" target="_blank" rel="noopener noreferrer">
+          <img src="https://api.render.com/v1/badges/services/srv-d4mk1kruibrs738liamg/status.svg" alt="Render Deploy Status" className="h-6" />
+        </a>
+      </div>
+
       {/* Main content */}
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-8">
         <div className="max-w-3xl w-full text-center">
