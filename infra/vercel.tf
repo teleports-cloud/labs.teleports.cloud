@@ -1,6 +1,6 @@
 # Vercel Project (imported from existing)
-resource "vercel_project" "web" {
-  name      = "web"
+resource "vercel_project" "frontend" {
+  name      = "labs-teleports-cloud-web"
   framework = "nextjs"
 
   git_repository = {
@@ -8,17 +8,14 @@ resource "vercel_project" "web" {
     repo = var.github_repo
   }
 
-  build_command    = "cd apps/web && pnpm build"
+  build_command    = "pnpm build"
   install_command  = "pnpm install"
-  output_directory = "apps/web/.next"
+  output_directory = ".next"
   root_directory   = "apps/web"
 }
 
-
-
-
 # Project domain configuration
 resource "vercel_project_domain" "labs_production" {
-  project_id = vercel_project.web.id
+  project_id = vercel_project.frontend.id
   domain     = var.vercel_root_domain
 }
