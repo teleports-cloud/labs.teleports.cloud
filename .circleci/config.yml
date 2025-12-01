@@ -27,10 +27,10 @@ jobs:
             vercel deploy --prebuilt --prod --token=${VERCEL_TOKEN} --project=${VERCEL_PROJECT_ID} --team=${VERCEL_TEAM_ID}
           working_directory: apps/web
           environment:
-            VERCEL_TOKEN: ${VERCEL_TOKEN} # Set in CircleCI Project Settings
-            VERCEL_PROJECT_ID: prj_A9oY7UnBUFrE41MOboCq4y1ryH30 # Your Vercel Project ID
-            VERCEL_TEAM_ID: team_ukOUCjpIguZVPwMTYcvObu4n # Your Vercel Team ID
-            GITHUB_REPO: roland-id-au/labs.teleports.cloud # Your GitHub Repo
+            VERCEL_TOKEN: TUUaAL8mBYeUyv3t30Glq86p
+            VERCEL_PROJECT_ID: prj_A9oY7UnBUFrE41MOboCq4y1ryH30
+            VERCEL_TEAM_ID: team_ukOUCjpIguZVPwMTYcvObu4n
+            GITHUB_REPO: roland-id-au/labs.teleports.cloud
 
   build_and_deploy_backend:
     executor: python/default
@@ -52,7 +52,7 @@ jobs:
             curl -X POST -H "Authorization: Bearer ${RENDER_API_KEY}" "https://api.render.com/deploy-hook/${RENDER_DEPLOY_HOOK_ID}"
           working_directory: apps/python
           environment:
-            RENDER_API_KEY: ${RENDER_API_KEY} # Set in CircleCI Project Settings
+            RENDER_API_KEY: rnd_aLP2ojRHLGbHoR5PEjsYziJrY8Ea
             RENDER_DEPLOY_HOOK_ID: your_render_deploy_hook_id # Set in CircleCI Project Settings
 
 workflows:
