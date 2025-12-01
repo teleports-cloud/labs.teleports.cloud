@@ -100,18 +100,18 @@ export default function LandingPage() {
       {/* Build Status Badges */}
       <div className="absolute top-4 right-4 flex flex-row items-center gap-2 z-10">
         <a href="https://app.circleci.com/pipelines/github/teleports-cloud/labs.teleports.cloud" target="_blank" rel="noopener noreferrer">
-          <img src="https://img.shields.io/circleci/build/github/teleports-cloud/labs.teleports.cloud/main?logo=circleci&style=flat&label=CircleCI&color=transparent&labelColor=transparent" alt="CircleCI Build Status" />
+          <img src="https://img.shields.io/circleci/build/github/teleports-cloud/labs.teleports.cloud/main?logo=circleci&style=flat&label=CircleCI&color=transparent&labelColor=transparent&messageColor=black" alt="CircleCI Build Status" />
         </a>
         <a href="https://vercel.com/teleports-cloud/labs-teleports-cloud" target="_blank" rel="noopener noreferrer">
-          <img src="https://img.shields.io/github/deployments/teleports-cloud/labs.teleports.cloud/production?logo=vercel&style=flat&label=Vercel&color=transparent&labelColor=transparent" alt="Vercel Deployment Status" />
+          <img src="https://img.shields.io/github/deployments/teleports-cloud/labs.teleports.cloud/production?logo=vercel&style=flat&label=Vercel&color=transparent&labelColor=transparent&messageColor=black" alt="Vercel Deployment Status" />
         </a>
         <div className="flex items-center gap-1">
           <a href="https://github.com/teleports-cloud/labs.teleports.cloud/commits/main" target="_blank" rel="noopener noreferrer">
-            <img src={`https://img.shields.io/badge/stamped-${stampedCommitHash}-black?style=flat&logo=github`} alt="Stamped Commit" />
+            <img src={`https://img.shields.io/badge/stamped-${stampedCommitHash}-black?style=flat&logo=github&labelColor=transparent&color=transparent`} alt="Stamped Commit" />
           </a>
           <span>&gt;</span>
           <a href="https://github.com/teleports-cloud/labs.teleports.cloud/commits/main" target="_blank" rel="noopener noreferrer">
-            <img src={`https://img.shields.io/badge/latest-${latestCommitHash}-black?style=flat`} alt="Latest Commit" />
+            <img src={`https://img.shields.io/badge/latest-${latestCommitHash}-black?style=flat&labelColor=transparent&color=transparent`} alt="Latest Commit" />
           </a>
           {isOutdated && <span className="text-yellow-500">⚠️</span>}
         </div>
