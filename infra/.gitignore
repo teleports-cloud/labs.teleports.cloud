@@ -1,0 +1,15 @@
+# Terraform / OpenTofu
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+!terraform.tfvars.example
+terraform.tfplan
+crash.log
+crash.*.log
+
+# Sensitive files
+.env
+*.pem
+*.key

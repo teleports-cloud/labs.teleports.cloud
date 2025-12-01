@@ -1,0 +1,12 @@
+# Copy this file to terraform.tfvars and fill in the values
+
+# Render API key (get from https://dashboard.render.com/u/settings#api-keys)
+render_api_key = "rnd_..."
+
+# These are already set with defaults in variables.tf
+# Uncomment and modify if different:
+
+# vercel_team_id     = "team_..."
+# vercel_project_id  = "prj_..."
+# github_repo        = "teleports-cloud/labs.teleports.cloud"
+# render_service_id  = "srv_..."
