@@ -216,7 +216,7 @@ export default function UploadPage() {
                         >
                           {Object.values(record).map((value, j) => (
                             <td key={j} className="py-2 px-3">
-                              {value ?? "-"}
+                              {value !== null && value !== undefined ? String(value) : "-"}
                             </td>
                           ))}
                         </tr>
