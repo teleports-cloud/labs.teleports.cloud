@@ -55,9 +55,14 @@ jobs:
           command: pnpm type-check
           working_directory: apps/web
       - run:
+          name: Stamp build with commit hash
+          command: echo "export NEXT_PUBLIC_COMMIT_HASH=$(git rev-parse --short HEAD)" >> $BASH_ENV
+      - run:
           name: Build Frontend
           command: pnpm build
           working_directory: apps/web
+          environment:
+            NEXT_PUBLIC_COMMIT_HASH: ${NEXT_PUBLIC_COMMIT_HASH}
       - persist_to_workspace:
           root: .
           paths:

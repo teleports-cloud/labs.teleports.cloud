@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import config, { getCreateSessionUrl, getUploadUrl } from "../config";
 
@@ -15,6 +15,19 @@ export default function LandingPage() {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null); // New state for errors
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [latestCommitHash, setLatestCommitHash] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch('https://api.github.com/repos/teleports-cloud/labs.teleports.cloud/branches/main')
+      .then(res => res.json())
+      .then(data => {
+        setLatestCommitHash(data.commit.sha.substring(0, 7));
+      })
+      .catch(console.error);
+  }, []);
+
+  const stampedCommitHash = process.env.NEXT_PUBLIC_COMMIT_HASH;
+  const isOutdated = stampedCommitHash && latestCommitHash && stampedCommitHash !== latestCommitHash;
 
   async function handleFiles(files: FileList) {
     if (files.length === 0) return;
@@ -85,7 +98,6 @@ export default function LandingPage() {
   return (
     <div className="h-screen bg-white flex flex-col overflow-hidden relative"> {/* Added relative positioning */}
       {/* Build Status Badges */}
-      {/* Build Status Badges */}
       <div className="absolute top-4 right-4 flex flex-row items-center gap-2 z-10">
         <a href="https://app.circleci.com/pipelines/github/teleports-cloud/labs.teleports.cloud" target="_blank" rel="noopener noreferrer">
           <img src="https://img.shields.io/circleci/build/github/teleports-cloud/labs.teleports.cloud/main?logo=circleci&style=flat&logoColor=white&label=" alt="CircleCI Build Status" />
@@ -93,9 +105,16 @@ export default function LandingPage() {
         <a href="https://vercel.com/teleports-cloud/labs-teleports-cloud" target="_blank" rel="noopener noreferrer">
           <img src="https://img.shields.io/github/deployments/teleports-cloud/labs.teleports.cloud/production?logo=vercel&style=flat&logoColor=white&label=" alt="Vercel Deployment Status" />
         </a>
-        <a href="https://github.com/teleports-cloud/labs.teleports.cloud/commits/main" target="_blank" rel="noopener noreferrer">
-          <img src="https://img.shields.io/github/last-commit/teleports-cloud/labs.teleports.cloud?logo=github&style=flat&logoColor=white&label=" alt="Last Commit" />
-        </a>
+        <div className="flex items-center gap-1">
+          <a href="https://github.com/teleports-cloud/labs.teleports.cloud/commits/main" target="_blank" rel="noopener noreferrer">
+            <img src={`https://img.shields.io/badge/stamped-${stampedCommitHash}-blue?style=flat&logo=github&logoColor=white`} alt="Stamped Commit" />
+          </a>
+          <span>&gt;</span>
+          <a href="https://github.com/teleports-cloud/labs.teleports.cloud/commits/main" target="_blank" rel="noopener noreferrer">
+            <img src={`https://img.shields.io/badge/latest-${latestCommitHash}-blue?style=flat`} alt="Latest Commit" />
+          </a>
+          {isOutdated && <span className="text-yellow-500">⚠️</span>}
+        </div>
       </div>
 
       {/* Main content */}
