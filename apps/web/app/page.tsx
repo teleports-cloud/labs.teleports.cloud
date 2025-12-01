@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const SUPPORTED_FORMATS = [
-  { name: "SmartWare II", ext: ".ws", era: "1980s-1990s" },
+  { name: "SmartWare II", ext: ".ws", era: "1980s-1990s", icon: "💾" },
 ];
 
 export default function LandingPage() {
@@ -56,12 +56,12 @@ export default function LandingPage() {
           <h3 className="text-xs uppercase tracking-wider opacity-40 mb-4 text-center">
             Currently Supported Formats
           </h3>
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex flex-wrap justify-center gap-8">
             {SUPPORTED_FORMATS.map((format, idx) => (
-              <div key={idx} className="text-center">
+              <div key={idx} className="text-center flex flex-col items-center gap-2">
+                <div className="text-4xl">{format.icon}</div>
                 <div className="font-semibold text-sm">{format.name}</div>
-                <div className="text-xs opacity-50">{format.ext}</div>
-                <div className="text-xs opacity-40">{format.era}</div>
+                <div className="text-xs opacity-50">{format.ext} • {format.era}</div>
               </div>
             ))}
           </div>
