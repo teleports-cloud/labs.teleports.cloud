@@ -26,7 +26,7 @@ const config = {
 
   // TUI (Textual User Interface) URL
   tui: {
-    url: process.env.NEXT_PUBLIC_TUI_URL || "https://labs-teleports-cloud.onrender.com",
+    url: process.env.NEXT_PUBLIC_TUI_URL || "https://api.labs.teleports.cloud/tui",
   },
 
   // Feature flags
