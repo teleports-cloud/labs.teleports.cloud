@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 const SUPPORTED_FORMATS = [
-  { name: "SmartWare II", ext: ".ws", era: "1980s-1990s", icon: "💾" },
+  { name: "SmartWare II", ext: ".ws", era: "1980s-1990s" },
 ];
 
 const VintageComputerGraphic = () => (
@@ -78,7 +78,7 @@ export default function LandingPage() {
 
           {/* Terminal button */}
           <Link
-            href="https://labs-teleports-cloud.onrender.com"
+            href="/terminal"
             className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-black text-white text-lg font-medium hover:bg-gray-800 transition-colors rounded"
           >
             Open Terminal
@@ -88,20 +88,16 @@ export default function LandingPage() {
       </div>
 
       {/* Supported Formats Footer */}
-      <div className="border-t border-gray-200 py-8 px-6">
-        <div className="max-w-6xl mx-auto">
-          <h3 className="text-xs uppercase tracking-wider opacity-40 mb-4 text-center">
-            Currently Supported Formats
-          </h3>
-          <div className="flex flex-wrap justify-center gap-8">
+      <div className="py-6 px-6">
+        <div className="max-w-6xl mx-auto text-center">
+          <p className="text-sm font-mono text-gray-300">
             {SUPPORTED_FORMATS.map((format, idx) => (
-              <div key={idx} className="text-center flex flex-col items-center gap-2">
-                <div className="text-4xl">{format.icon}</div>
-                <div className="font-semibold text-sm">{format.name}</div>
-                <div className="text-xs opacity-50">{format.ext} • {format.era}</div>
-              </div>
+              <span key={idx}>
+                {format.name} {format.ext} · {format.era}
+                {idx < SUPPORTED_FORMATS.length - 1 && " • "}
+              </span>
             ))}
-          </div>
+          </p>
         </div>
       </div>
     </div>
