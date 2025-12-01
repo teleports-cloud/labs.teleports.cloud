@@ -1,60 +1,53 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
 
 const SUPPORTED_FORMATS = [
   { name: "SmartWare II", ext: ".ws", era: "1980s-1990s", icon: "💾" },
 ];
 
 const VintageComputerGraphic = () => (
-  <svg viewBox="0 0 400 300" className="w-96 h-auto mx-auto mb-8" fill="none" stroke="black" strokeWidth="2.5">
-    {/* Fedora hat */}
-    <ellipse cx="180" cy="130" rx="45" ry="8" fill="none" stroke="black" strokeWidth="2"/>
-    <path d="M 145 130 Q 145 100 180 95 Q 215 100 215 130" fill="none" stroke="black" strokeWidth="2.5"/>
-    <rect x="155" y="105" width="50" height="25" rx="2" fill="none" stroke="black" strokeWidth="2"/>
-    <line x1="160" y1="115" x2="200" y2="115" stroke="black" strokeWidth="1.5"/>
+  <svg viewBox="0 0 600 400" className="w-full max-w-2xl h-auto mx-auto mb-8" fill="none" stroke="black" strokeWidth="2.5">
+    {/* Fedora hat - left side */}
+    <ellipse cx="150" cy="190" rx="55" ry="10" fill="none" stroke="black" strokeWidth="2.5"/>
+    <path d="M 100 190 Q 100 150 150 140 Q 200 150 200 190" fill="none" stroke="black" strokeWidth="2.5"/>
+    <rect x="120" y="155" width="60" height="35" rx="3" fill="none" stroke="black" strokeWidth="2.5"/>
+    <line x1="125" y1="170" x2="175" y2="170" stroke="black" strokeWidth="2"/>
 
-    {/* Whip coiled */}
-    <ellipse cx="185" cy="165" rx="20" ry="6" fill="none" stroke="black" strokeWidth="2"/>
-    <ellipse cx="185" cy="162" rx="15" ry="5" fill="none" stroke="black" strokeWidth="2"/>
-    <ellipse cx="185" cy="159" rx="10" ry="4" fill="none" stroke="black" strokeWidth="2"/>
-    <path d="M 205 165 Q 220 165 225 170 Q 230 175 228 180" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round"/>
+    {/* Whip coiled - bottom left */}
+    <path d="M 140 240 Q 120 245 110 255" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round"/>
+    <ellipse cx="145" cy="260" rx="30" ry="8" fill="none" stroke="black" strokeWidth="2.5"/>
+    <ellipse cx="145" cy="256" rx="22" ry="6" fill="none" stroke="black" strokeWidth="2"/>
+    <ellipse cx="145" cy="252" rx="14" ry="4" fill="none" stroke="black" strokeWidth="2"/>
 
-    {/* Computer case */}
-    <rect x="230" y="100" width="140" height="180" rx="4" fill="none" stroke="black" strokeWidth="2.5"/>
+    {/* Computer tower - right side */}
+    <rect x="300" y="80" width="220" height="280" rx="6" fill="none" stroke="black" strokeWidth="3"/>
 
-    {/* Floppy drive - 5.25" */}
-    <rect x="245" y="130" width="110" height="40" fill="none" stroke="black" strokeWidth="2"/>
-    <circle cx="280" cy="150" r="15" fill="white" stroke="black" strokeWidth="2"/>
-    <circle cx="280" cy="150" r="6" fill="black"/>
-    <rect cx="280" cy="142" width="8" height="16" fill="black"/>
-    <path d="M 272 142 L 272 158 L 288 158 L 288 142" fill="black"/>
-    <circle cx="280" cy="150" r="4" fill="white"/>
-    <line x1="330" y1="145" x2="345" y2="145" stroke="black" strokeWidth="1.5"/>
-    <rect x="325" y="155" width="25" height="8" rx="1" fill="none" stroke="black" strokeWidth="1.5"/>
+    {/* Floppy disk drive - 5.25" */}
+    <rect x="320" y="120" width="180" height="60" fill="none" stroke="black" strokeWidth="2.5"/>
+    {/* Floppy disk visible in drive */}
+    <circle cx="370" cy="150" r="20" fill="white" stroke="black" strokeWidth="2.5"/>
+    <circle cx="370" cy="150" r="8" fill="black"/>
+    <path d="M 362 142 L 362 158 L 378 158 L 378 142 Z" fill="black"/>
+    <circle cx="370" cy="150" r="5" fill="white"/>
+    {/* Drive slot/opening */}
+    <line x1="450" y1="145" x2="480" y2="145" stroke="black" strokeWidth="2"/>
+    <rect x="445" y="155" width="40" height="12" rx="2" fill="none" stroke="black" strokeWidth="2"/>
 
-    {/* Power button */}
-    <circle cx="260" cy="260" r="6" fill="none" stroke="black" strokeWidth="2"/>
-    <path d="M 260 255 L 260 260" stroke="black" strokeWidth="2" strokeLinecap="round"/>
+    {/* Power button and LED */}
+    <circle cx="340" cy="330" r="8" fill="none" stroke="black" strokeWidth="2.5"/>
+    <path d="M 340 323 L 340 330" stroke="black" strokeWidth="2.5" strokeLinecap="round"/>
+    <circle cx="370" cy="330" r="4" fill="black"/>
 
-    {/* Ventilation slots */}
-    <line x1="340" y1="240" x2="340" y2="265" stroke="black" strokeWidth="1.5"/>
-    <line x1="345" y1="240" x2="345" y2="265" stroke="black" strokeWidth="1.5"/>
-    <line x1="350" y1="240" x2="350" y2="265" stroke="black" strokeWidth="1.5"/>
+    {/* Ventilation grilles */}
+    <line x1="480" y1="280" x2="480" y2="320" stroke="black" strokeWidth="2"/>
+    <line x1="487" y1="280" x2="487" y2="320" stroke="black" strokeWidth="2"/>
+    <line x1="494" y1="280" x2="494" y2="320" stroke="black" strokeWidth="2"/>
+    <line x1="501" y1="280" x2="501" y2="320" stroke="black" strokeWidth="2"/>
   </svg>
 );
 
 export default function LandingPage() {
-  const [showCursor, setShowCursor] = useState(true);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setShowCursor((prev) => !prev);
-    }, 530);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Main content */}
@@ -86,10 +79,10 @@ export default function LandingPage() {
           {/* Terminal button */}
           <Link
             href="https://labs-teleports-cloud.onrender.com"
-            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-black text-white text-lg font-medium hover:bg-gray-800 transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-black text-white text-lg font-medium hover:bg-gray-800 transition-colors rounded"
           >
             Open Terminal
-            <span className="inline-block w-3 h-5 bg-white" style={{ opacity: showCursor ? 1 : 0 }}></span>
+            <span className="text-xl">↗</span>
           </Link>
         </div>
       </div>
