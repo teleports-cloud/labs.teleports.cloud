@@ -1,0 +1,27 @@
+name: Mirror Repository
+
+on:
+  push:
+    branches:
+      - main # Trigger on pushes to the main branch
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for mirroring
+
+      - name: Set up Git
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+
+      - name: Add mirror remote and push
+        env:
+          MIRROR_REPO: "https://roland-id-au:${{ secrets.MIRROR_TOKEN }}@github.com/roland-id-au/labs.teleports.cloud.git"
+        run: |
+          git remote add mirror "$MIRROR_REPO"
+          git push mirror --mirror
