@@ -29,7 +29,12 @@
       "Bash(bash launch-tui.sh:*)",
       "Bash(xargs:*)",
       "Bash(mkdir:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(render --help:*)",
+      "Bash(render login)",
+      "Bash(render whoami -o json)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []

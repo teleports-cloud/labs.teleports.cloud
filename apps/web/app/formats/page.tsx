@@ -1,151 +1,136 @@
-import Link from "next/link";
+"use client";
 
-export default function FormatsPage() {
+import Link from "next/link";
+import { useState, useRef } from "react";
+
+const HISTORIC_FORMATS = [
+  { name: "SmartWare II", ext: ".ws", category: "Database", era: "1980s-1990s" },
+];
+
+export default function Home() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [detectedFormat, setDetectedFormat] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const filteredFormats = HISTORIC_FORMATS.filter(
+    (format) =>
+      format.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      format.ext.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      format.category.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      // Basic detection based on extension
+      const ext = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+      const detected = HISTORIC_FORMATS.find(f => f.ext.includes(ext));
+      setDetectedFormat(detected ? detected.name : "Unknown format");
+    }
+  };
+
   return (
     <div className="terminal min-h-screen flex flex-col">
-      <div className="scan-line" />
-
+      {/* Header */}
       <header className="terminal-header py-4 px-6">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold">📋 Supported Formats</h1>
-            <p className="text-sm opacity-90">File Format Documentation</p>
-          </div>
-          <Link href="/" className="terminal-button py-2 px-4 rounded">
-            ← Home
-          </Link>
+        <div className="max-w-6xl mx-auto">
+          <h1 className="text-2xl font-bold">Historic File Format Converter</h1>
+          <p className="text-sm opacity-70">labs.teleports.cloud</p>
         </div>
       </header>
 
+      {/* Main Content */}
       <main className="flex-1 p-6">
-        <div className="max-w-4xl mx-auto space-y-6">
-          {/* SmartWare II */}
-          <div className="terminal-panel p-6">
-            <h2 className="text-2xl font-bold mb-4 text-cyan-400">
-              SmartWare II Database Files (.ws)
+        <div className="max-w-6xl mx-auto">
+          {/* Hero Section */}
+          <div className="terminal-panel p-8 mb-6">
+            <h2 className="text-3xl font-bold mb-4">
+              Recover Data from Historic File Formats
             </h2>
+            <p className="text-lg mb-6 opacity-80">
+              Convert legacy database, spreadsheet, and word processing files from the 1970s-2000s into modern formats.
+              Upload a file for automatic detection or browse supported formats below.
+            </p>
 
-            <div className="space-y-4 text-gray-300">
-              <div>
-                <h3 className="font-bold text-yellow-400 mb-2">Format Details</h3>
-                <ul className="list-disc list-inside space-y-1 text-sm">
-                  <li>Magic Bytes: <code className="bg-black/50 px-2 py-1 rounded">0x53 0x04</code></li>
-                  <li>Era: 1980s-1990s DOS/Windows software</li>
-                  <li>Application: SmartWare II integrated office suite</li>
-                  <li>Binary proprietary format</li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-bold text-yellow-400 mb-2">Data Extraction Method</h3>
-                <ul className="list-disc list-inside space-y-1 text-sm">
-                  <li>Binary format reverse-engineered</li>
-                  <li>Pattern matching for dates (YYYY/MM/DD)</li>
-                  <li>Quadrat ID extraction (m/s/w + numbers)</li>
-                  <li>IEEE 754 double precision number extraction</li>
-                  <li>Proximity-based field grouping</li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-bold text-yellow-400 mb-2">Extracted Fields</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  <div className="bg-black/30 p-2 rounded">
-                    <span className="text-green-400">Date</span> - Survey date
-                  </div>
-                  <div className="bg-black/30 p-2 rounded">
-                    <span className="text-green-400">Quadrat</span> - Sampling location ID
-                  </div>
-                  <div className="bg-black/30 p-2 rounded">
-                    <span className="text-green-400">Green Grass</span> - Living grass coverage %
-                  </div>
-                  <div className="bg-black/30 p-2 rounded">
-                    <span className="text-green-400">Dead Grass</span> - Dead grass coverage %
-                  </div>
-                  <div className="bg-black/30 p-2 rounded">
-                    <span className="text-green-400">Green Forb</span> - Living forbs coverage %
-                  </div>
-                  <div className="bg-black/30 p-2 rounded">
-                    <span className="text-green-400">Dead Forb</span> - Dead forbs coverage %
-                  </div>
-                  <div className="bg-black/30 p-2 rounded">
-                    <span className="text-green-400">Litter</span> - Plant litter coverage %
-                  </div>
-                  <div className="bg-black/30 p-2 rounded">
-                    <span className="text-green-400">Tree Cover</span> - Canopy coverage %
-                  </div>
-                  <div className="bg-black/30 p-2 rounded">
-                    <span className="text-green-400">Bare Ground</span> - Exposed soil %
-                  </div>
-                  <div className="bg-black/30 p-2 rounded">
-                    <span className="text-green-400">Total</span> - Sum verification
-                  </div>
+            {/* File Upload Section */}
+            <div className="mb-6">
+              <input
+                ref={fileInputRef}
+                type="file"
+                onChange={handleFileSelect}
+                className="hidden"
+                id="file-upload"
+              />
+              <label
+                htmlFor="file-upload"
+                className="block border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-gray-400 transition-colors"
+              >
+                <div className="text-4xl mb-3">📁</div>
+                <div className="font-semibold mb-1">
+                  {selectedFile ? selectedFile.name : "Drop a file here or click to browse"}
                 </div>
-              </div>
+                <div className="text-sm opacity-60">
+                  {detectedFormat ? `Detected: ${detectedFormat}` : "Automatic format detection enabled"}
+                </div>
+              </label>
+
+              {selectedFile && (
+                <div className="mt-4">
+                  <Link
+                    href="/upload"
+                    className="terminal-button-primary py-3 px-6 rounded inline-block font-semibold"
+                  >
+                    Convert File →
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Future Formats */}
-          <div className="terminal-panel p-6">
-            <h2 className="text-2xl font-bold mb-4 text-purple-400">
-              Future Format Support
-            </h2>
+          {/* Search Bar */}
+          <div className="mb-6">
+            <input
+              type="text"
+              placeholder="Search formats by name, extension, or category..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="terminal-input w-full py-3 px-4 rounded text-base"
+            />
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-black/30 p-4 rounded border border-gray-800">
-                <h3 className="font-bold text-yellow-400 mb-2">📄 CSV Files</h3>
-                <p className="text-sm text-gray-400">Raw import for comma-separated values</p>
-              </div>
+          {/* Formats Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+            {filteredFormats.map((format, idx) => (
+              <Link
+                key={idx}
+                href={`/formats/${format.name.toLowerCase().replace(/\s+/g, '-')}`}
+                className="terminal-panel p-6 hover:shadow-md transition-shadow"
+              >
+                <div className="font-bold text-lg mb-2">{format.name}</div>
+                <div className="text-sm opacity-60 mb-1">{format.ext}</div>
+                <div className="flex justify-between items-center mt-3">
+                  <span className="text-xs px-2 py-1 bg-gray-200 rounded">{format.category}</span>
+                  <span className="text-xs opacity-50">{format.era}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
 
-              <div className="bg-black/30 p-4 rounded border border-gray-800">
-                <h3 className="font-bold text-yellow-400 mb-2">📊 Excel Files</h3>
-                <p className="text-sm text-gray-400">.xlsx and .xls spreadsheet support</p>
-              </div>
-
-              <div className="bg-black/30 p-4 rounded border border-gray-800">
-                <h3 className="font-bold text-yellow-400 mb-2">🗄️ dBASE Files</h3>
-                <p className="text-sm text-gray-400">.dbf database file format</p>
-              </div>
-
-              <div className="bg-black/30 p-4 rounded border border-gray-800">
-                <h3 className="font-bold text-yellow-400 mb-2">📦 Archives</h3>
-                <p className="text-sm text-gray-400">.zip and .tar.gz extraction</p>
-              </div>
+          {filteredFormats.length === 0 && (
+            <div className="terminal-panel p-8 text-center">
+              <p className="opacity-60">No formats found matching "{searchQuery}"</p>
             </div>
-          </div>
-
-          {/* Technical Details */}
-          <div className="terminal-panel p-6">
-            <h2 className="text-2xl font-bold mb-4 text-orange-400">
-              Technical Implementation
-            </h2>
-
-            <pre className="bg-black/50 p-4 rounded text-sm overflow-x-auto">
-              <code className="text-green-400">{`// Pattern Recognition
-const datePattern = /19\\d{2}\\/\\d{2}\\/\\d{2}/g;
-const quadratPattern = /[msw]\\d+[rq]\\d+[q]?\\d*/g;
-
-// IEEE 754 Double Extraction
-for (let i = 0; i < data.length - 8; i++) {
-  const value = data.readDoubleLE(i);
-  if (isValid(value)) numbers.push([i, value]);
-}
-
-// Proximity-based Grouping
-for (const [datePos, date] of dates) {
-  const nearbyQuadrats = quadrats.filter(
-    ([pos]) => Math.abs(pos - datePos) < 100
-  );
-  // Group related fields...
-}`}</code>
-            </pre>
-          </div>
+          )}
         </div>
       </main>
 
-      <footer className="py-4 px-6 border-t border-gray-800">
-        <div className="max-w-6xl mx-auto text-center text-sm text-gray-500">
-          <p>SmartWare II Data Recovery Project</p>
+      {/* Footer */}
+      <footer className="py-4 px-6 border-t border-gray-300">
+        <div className="max-w-6xl mx-auto text-center text-sm opacity-60">
+          <p>Historic File Format Recovery & Conversion</p>
+          <p className="text-xs mt-1">Binary Format Reverse Engineering</p>
         </div>
       </footer>
     </div>
