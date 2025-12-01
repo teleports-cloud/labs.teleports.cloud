@@ -90,7 +90,7 @@ export default function LandingPage() {
           <img src="https://vercel.com/teleports-cloud-team/prj_A9oY7UnBUFrE41MOboCq4y1ryH30/badge" alt="Vercel Deploy Status" className="h-6" />
         </a>
         <a href="https://dashboard.render.com/web/srv-d4mk1kruibrs738liamg" target="_blank" rel="noopener noreferrer">
-          <img src="https://api.render.com/v1/badges/services/srv-d4mk1kruibrs738liamg/status.svg" alt="Render Deploy Status" className="h-6" />
+          <img src={getRenderBadgeUrl()} alt="Render Deploy Status" className="h-6" />
         </a>
       </div>
 

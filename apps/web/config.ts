@@ -36,6 +36,7 @@ const config = {
     uploadMaxSizeMB: 50,
     inactivityWarningMinutes: 28,
     sessionTimeoutMinutes: 30,
+    renderServiceId: process.env.NEXT_PUBLIC_RENDER_SERVICE_ID || "srv-d4mk1kruibrs738liamg",
   }
 } as const;
 
@@ -60,4 +61,8 @@ export const getCreateSessionUrl = () => {
 
 export const getTuiUrl = () => {
   return config.tui.url;
+};
+
+export const getRenderBadgeUrl = () => {
+  return `https://api.render.com/v1/badges/services/${config.features.renderServiceId}/status.svg`;
 };
