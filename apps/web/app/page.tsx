@@ -85,23 +85,23 @@ export default function LandingPage() {
   return (
     <div className="h-screen bg-white flex flex-col overflow-hidden relative"> {/* Added relative positioning */}
       {/* Build Status Badges */}
-      <div className="absolute top-4 right-4 flex flex-col gap-2 z-10">
-        {/* CircleCI Build Status */}
-        <a href="https://circleci.com/gh/teleports-cloud/labs.teleports.cloud" target="_blank" rel="noopener noreferrer">
-          <img src="https://img.shields.io/circleci/build/github/teleports-cloud/labs.teleports.cloud/main?logo=circleci&style=for-the-badge" alt="CircleCI Build Status" />
-        </a>
-        {/* Vercel Deployment Status */}
-        <a href="https://vercel.com/teleports-cloud/labs-teleports-cloud" target="_blank" rel="noopener noreferrer">
-          <img src="https://img.shields.io/github/deployments/teleports-cloud/labs.teleports.cloud/production?logo=vercel&label=vercel" alt="Vercel Deployment Status" />
-        </a>
-        {/* Render Deployment Status */}
-        <a href="https://dashboard.render.com/web/srv-d4mk1kruibrs738liamg" target="_blank" rel="noopener noreferrer">
-          <img src="https://render.com/status/srv-d4mk1kruibrs738liamg.svg" alt="Render Deployment Status" />
-        </a>
-        {/* Last Commit */}
-        <a href="https://github.com/teleports-cloud/labs.teleports.cloud/commits/main" target="_blank" rel="noopener noreferrer">
-          <img src="https://img.shields.io/github/last-commit/teleports-cloud/labs.teleports.cloud?style=for-the-badge" alt="Last Commit" />
-        </a>
+      {/* Build Status Badges */}
+      <div className="absolute top-4 right-4 flex flex-col items-end gap-2 z-10">
+        <div className="badge-group">
+          <a href="https://app.circleci.com/pipelines/github/teleports-cloud/labs.teleports.cloud" target="_blank" rel="noopener noreferrer">
+            <img src="https://img.shields.io/circleci/build/github/teleports-cloud/labs.teleports.cloud/main?logo=circleci&style=flat" alt="CircleCI Build Status" />
+          </a>
+        </div>
+        <div className="badge-group">
+          <a href="https://vercel.com/teleports-cloud/labs-teleports-cloud" target="_blank" rel="noopener noreferrer">
+            <img src="https://img.shields.io/github/deployments/teleports-cloud/labs.teleports.cloud/production?logo=vercel&label=vercel&style=flat" alt="Vercel Deployment Status" />
+          </a>
+        </div>
+        <div className="badge-group">
+          <a href="https://github.com/teleports-cloud/labs.teleports.cloud/commits/main" target="_blank" rel="noopener noreferrer">
+            <img src="https://img.shields.io/github/last-commit/teleports-cloud/labs.teleports.cloud?style=flat" alt="Last Commit" />
+          </a>
+        </div>
       </div>
 
       {/* Main content */}
