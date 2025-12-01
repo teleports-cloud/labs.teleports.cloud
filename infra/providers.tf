@@ -20,5 +20,4 @@ provider "cloudflare" {
 provider "vercel" {
   # API token will be read from VERCEL_API_TOKEN environment variable
   # or can be set via api_token attribute
-  team = var.vercel_team_id
 }
