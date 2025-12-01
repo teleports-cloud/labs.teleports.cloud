@@ -85,18 +85,22 @@ export default function LandingPage() {
   return (
     <div className="h-screen bg-white flex flex-col overflow-hidden relative"> {/* Added relative positioning */}
       {/* Build Status Badges */}
-      <div className="absolute top-4 right-4 flex gap-2 z-10"> {/* Positioning badges */}
-        {/* Frontend Build Status Badge */}
-        <a href="https://github.com/teleports-cloud/labs.teleports.cloud/actions/workflows/build-frontend.yml" target="_blank" rel="noopener noreferrer">
-          <img src="https://img.shields.io/github/actions/workflow/status/teleports-cloud/labs.teleports.cloud/build-frontend.yml?label=frontend%20build&logo=github&style=for-the-badge" alt="Frontend Build Status" className="h-6" />
+      <div className="absolute top-4 right-4 flex flex-col gap-2 z-10">
+        {/* CircleCI Build Status */}
+        <a href="https://circleci.com/gh/teleports-cloud/labs.teleports.cloud" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.shields.io/circleci/build/github/teleports-cloud/labs.teleports.cloud/main?logo=circleci&style=for-the-badge" alt="CircleCI Build Status" />
         </a>
-        {/* Backend Build Status Badge */}
-        <a href="https://github.com/teleports-cloud/labs.teleports.cloud/actions/workflows/build-backend.yml" target="_blank" rel="noopener noreferrer">
-          <img src="https://img.shields.io/github/actions/workflow/status/teleports-cloud/labs.teleports.cloud/build-backend.yml?label=backend%20build&logo=github&style=for-the-badge" alt="Backend Build Status" className="h-6" />
+        {/* Vercel Deployment Status */}
+        <a href="https://vercel.com/teleports-cloud/labs-teleports-cloud" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.shields.io/github/deployments/teleports-cloud/labs.teleports.cloud/production?logo=vercel&label=vercel" alt="Vercel Deployment Status" />
         </a>
-        {/* Mirror Sync Status Badge (Optional, using mirror.yml status) */}
-        <a href="https://github.com/teleports-cloud/labs.teleports.cloud/actions/workflows/mirror.yml" target="_blank" rel="noopener noreferrer">
-          <img src="https://img.shields.io/github/actions/workflow/status/teleports-cloud/labs.teleports.cloud/mirror.yml?label=mirror%20sync&logo=github&style=for-the-badge" alt="Mirror Sync Status" className="h-6" />
+        {/* Render Deployment Status */}
+        <a href="https://dashboard.render.com/web/srv-d4mk1kruibrs738liamg" target="_blank" rel="noopener noreferrer">
+          <img src="https://render.com/status/srv-d4mk1kruibrs738liamg.svg" alt="Render Deployment Status" />
+        </a>
+        {/* Last Commit */}
+        <a href="https://github.com/teleports-cloud/labs.teleports.cloud/commits/main" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.shields.io/github/last-commit/teleports-cloud/labs.teleports.cloud?style=for-the-badge" alt="Last Commit" />
         </a>
       </div>
 
