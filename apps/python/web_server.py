@@ -36,7 +36,7 @@ textual_app = HistoricFormatViewer([])
 textual_server = TextualServer(textual_app)
 
 # Mount the Textual server at /tui
-app.mount("/tui", textual_server)
+app.mount("/tui", textual_server.asgi_app)
 
 @app.get("/")
 async def root():
