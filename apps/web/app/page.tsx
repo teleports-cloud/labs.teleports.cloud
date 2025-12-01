@@ -21,10 +21,10 @@ export default function LandingPage() {
           {/* Hero graphic */}
           <div className="py-4">
             <Image
-              src="/hero.png"
+              src="/hero.svg"
               alt="Vintage computer with Indiana Jones hat and whip"
-              width={500}
-              height={300}
+              width={450}
+              height={245}
               className="mx-auto"
               priority
             />
