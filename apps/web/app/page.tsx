@@ -86,22 +86,16 @@ export default function LandingPage() {
     <div className="h-screen bg-white flex flex-col overflow-hidden relative"> {/* Added relative positioning */}
       {/* Build Status Badges */}
       {/* Build Status Badges */}
-      <div className="absolute top-4 right-4 flex flex-col items-end gap-2 z-10">
-        <div className="badge-group">
-          <a href="https://app.circleci.com/pipelines/github/teleports-cloud/labs.teleports.cloud" target="_blank" rel="noopener noreferrer">
-            <img src="https://img.shields.io/circleci/build/github/teleports-cloud/labs.teleports.cloud/main?logo=circleci&style=flat" alt="CircleCI Build Status" />
-          </a>
-        </div>
-        <div className="badge-group">
-          <a href="https://vercel.com/teleports-cloud/labs-teleports-cloud" target="_blank" rel="noopener noreferrer">
-            <img src="https://img.shields.io/github/deployments/teleports-cloud/labs.teleports.cloud/production?logo=vercel&label=vercel&style=flat" alt="Vercel Deployment Status" />
-          </a>
-        </div>
-        <div className="badge-group">
-          <a href="https://github.com/teleports-cloud/labs.teleports.cloud/commits/main" target="_blank" rel="noopener noreferrer">
-            <img src="https://img.shields.io/github/last-commit/teleports-cloud/labs.teleports.cloud?style=flat" alt="Last Commit" />
-          </a>
-        </div>
+      <div className="absolute top-4 right-4 flex flex-row items-center gap-2 z-10">
+        <a href="https://app.circleci.com/pipelines/github/teleports-cloud/labs.teleports.cloud" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.shields.io/circleci/build/github/teleports-cloud/labs.teleports.cloud/main?logo=circleci&style=flat&logoColor=white&label=" alt="CircleCI Build Status" />
+        </a>
+        <a href="https://vercel.com/teleports-cloud/labs-teleports-cloud" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.shields.io/github/deployments/teleports-cloud/labs.teleports.cloud/production?logo=vercel&style=flat&logoColor=white&label=" alt="Vercel Deployment Status" />
+        </a>
+        <a href="https://github.com/teleports-cloud/labs.teleports.cloud/commits/main" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.shields.io/github/last-commit/teleports-cloud/labs.teleports.cloud?logo=github&style=flat&logoColor=white&label=" alt="Last Commit" />
+        </a>
       </div>
 
       {/* Main content */}
