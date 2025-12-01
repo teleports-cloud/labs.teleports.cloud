@@ -3,10 +3,7 @@ resource "vercel_project" "frontend" {
   name      = "labs-teleports-cloud-web"
   framework = "nextjs"
 
-  git_repository = {
-    type = "github"
-    repo = var.github_repo
-  }
+
 
   build_command    = "pnpm build"
   install_command  = "pnpm install"
