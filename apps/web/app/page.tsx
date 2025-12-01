@@ -86,11 +86,17 @@ export default function LandingPage() {
     <div className="h-screen bg-white flex flex-col overflow-hidden relative"> {/* Added relative positioning */}
       {/* Build Status Badges */}
       <div className="absolute top-4 right-4 flex gap-2 z-10"> {/* Positioning badges */}
-        <a href="https://vercel.com/teleports-cloud-team/labs-teleports-cloud-web/deployments" target="_blank" rel="noopener noreferrer">
-          <img src="https://vercel.com/teleports-cloud-team/prj_A9oY7UnBUFrE41MOboCq4y1ryH30/badge" alt="Vercel Deploy Status" className="h-6" />
+        {/* Frontend Build Status Badge */}
+        <a href="https://github.com/teleports-cloud/labs.teleports.cloud/actions/workflows/build-frontend.yml" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.shields.io/github/actions/workflow/status/teleports-cloud/labs.teleports.cloud/build-frontend.yml?label=frontend%20build&logo=github&style=for-the-badge" alt="Frontend Build Status" className="h-6" />
         </a>
-        <a href="https://dashboard.render.com/web/srv-d4mk1kruibrs738liamg" target="_blank" rel="noopener noreferrer">
-          <img src={getRenderBadgeUrl()} alt="Render Deploy Status" className="h-6" />
+        {/* Backend Build Status Badge */}
+        <a href="https://github.com/teleports-cloud/labs.teleports.cloud/actions/workflows/build-backend.yml" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.shields.io/github/actions/workflow/status/teleports-cloud/labs.teleports.cloud/build-backend.yml?label=backend%20build&logo=github&style=for-the-badge" alt="Backend Build Status" className="h-6" />
+        </a>
+        {/* Mirror Sync Status Badge (Optional, using mirror.yml status) */}
+        <a href="https://github.com/teleports-cloud/labs.teleports.cloud/actions/workflows/mirror.yml" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.shields.io/github/actions/workflow/status/teleports-cloud/labs.teleports.cloud/mirror.yml?label=mirror%20sync&logo=github&style=for-the-badge" alt="Mirror Sync Status" className="h-6" />
         </a>
       </div>
 
