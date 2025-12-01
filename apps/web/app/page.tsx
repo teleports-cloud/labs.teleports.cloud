@@ -1,63 +1,30 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 const SUPPORTED_FORMATS = [
   { name: "SmartWare II", ext: ".ws", era: "1980s-1990s" },
 ];
 
-const VintageComputerGraphic = () => (
-  <svg viewBox="0 0 600 400" className="w-full max-w-2xl h-auto mx-auto mb-8" fill="none" stroke="black" strokeWidth="2.5">
-    {/* Fedora hat - left side */}
-    <ellipse cx="150" cy="190" rx="55" ry="10" fill="none" stroke="black" strokeWidth="2.5"/>
-    <path d="M 100 190 Q 100 150 150 140 Q 200 150 200 190" fill="none" stroke="black" strokeWidth="2.5"/>
-    <rect x="120" y="155" width="60" height="35" rx="3" fill="none" stroke="black" strokeWidth="2.5"/>
-    <line x1="125" y1="170" x2="175" y2="170" stroke="black" strokeWidth="2"/>
-
-    {/* Whip coiled - bottom left */}
-    <path d="M 140 240 Q 120 245 110 255" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round"/>
-    <ellipse cx="145" cy="260" rx="30" ry="8" fill="none" stroke="black" strokeWidth="2.5"/>
-    <ellipse cx="145" cy="256" rx="22" ry="6" fill="none" stroke="black" strokeWidth="2"/>
-    <ellipse cx="145" cy="252" rx="14" ry="4" fill="none" stroke="black" strokeWidth="2"/>
-
-    {/* Computer tower - right side */}
-    <rect x="300" y="80" width="220" height="280" rx="6" fill="none" stroke="black" strokeWidth="3"/>
-
-    {/* Floppy disk drive - 5.25" */}
-    <rect x="320" y="120" width="180" height="60" fill="none" stroke="black" strokeWidth="2.5"/>
-    {/* Floppy disk visible in drive */}
-    <circle cx="370" cy="150" r="20" fill="white" stroke="black" strokeWidth="2.5"/>
-    <circle cx="370" cy="150" r="8" fill="black"/>
-    <path d="M 362 142 L 362 158 L 378 158 L 378 142 Z" fill="black"/>
-    <circle cx="370" cy="150" r="5" fill="white"/>
-    {/* Drive slot/opening */}
-    <line x1="450" y1="145" x2="480" y2="145" stroke="black" strokeWidth="2"/>
-    <rect x="445" y="155" width="40" height="12" rx="2" fill="none" stroke="black" strokeWidth="2"/>
-
-    {/* Power button and LED */}
-    <circle cx="340" cy="330" r="8" fill="none" stroke="black" strokeWidth="2.5"/>
-    <path d="M 340 323 L 340 330" stroke="black" strokeWidth="2.5" strokeLinecap="round"/>
-    <circle cx="370" cy="330" r="4" fill="black"/>
-
-    {/* Ventilation grilles */}
-    <line x1="480" y1="280" x2="480" y2="320" stroke="black" strokeWidth="2"/>
-    <line x1="487" y1="280" x2="487" y2="320" stroke="black" strokeWidth="2"/>
-    <line x1="494" y1="280" x2="494" y2="320" stroke="black" strokeWidth="2"/>
-    <line x1="501" y1="280" x2="501" y2="320" stroke="black" strokeWidth="2"/>
-  </svg>
-);
-
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Main content */}
-      <div className="flex-1 flex flex-col items-center justify-center p-6">
+      <div className="flex-1 flex flex-col items-center justify-center p-6 pt-16">
         <div className="max-w-3xl w-full text-center">
           {/* Indiana Jones quote */}
-          <p className="text-2xl md:text-3xl font-bold mb-8">It belongs in a museum!</p>
+          <p className="text-3xl md:text-4xl font-bold mb-12">It belongs in a museum!</p>
 
-          {/* Indiana Jones style graphic */}
-          <VintageComputerGraphic />
+          {/* Hero graphic */}
+          <Image
+            src="/hero.png"
+            alt="Vintage computer with Indiana Jones hat and whip"
+            width={500}
+            height={300}
+            className="mx-auto mb-12"
+            priority
+          />
 
           {/* Logo/Title */}
           <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
@@ -88,13 +55,16 @@ export default function LandingPage() {
       </div>
 
       {/* Supported Formats Footer */}
-      <div className="py-6 px-6">
+      <div className="py-8 px-6">
         <div className="max-w-6xl mx-auto text-center">
-          <p className="text-sm font-mono text-gray-300">
+          <p className="text-xs font-mono text-gray-400 uppercase tracking-wider">
+            Currently Supported Formats
+          </p>
+          <p className="text-sm font-mono text-gray-400 mt-2">
             {SUPPORTED_FORMATS.map((format, idx) => (
               <span key={idx}>
-                {format.name} {format.ext} · {format.era}
-                {idx < SUPPORTED_FORMATS.length - 1 && " • "}
+                {format.name} {format.ext} • {format.era}
+                {idx < SUPPORTED_FORMATS.length - 1 && " | "}
               </span>
             ))}
           </p>
