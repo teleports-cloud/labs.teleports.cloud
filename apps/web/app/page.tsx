@@ -7,26 +7,41 @@ const SUPPORTED_FORMATS = [
   { name: "SmartWare II", ext: ".ws", era: "1980s-1990s", icon: "💾" },
 ];
 
-const FloppyDiskGraphic = () => (
-  <svg viewBox="0 0 200 240" className="w-48 h-auto mx-auto mb-6" fill="none" stroke="black" strokeWidth="2">
-    {/* Floppy disk body */}
-    <rect x="40" y="80" width="120" height="140" fill="white" stroke="black" strokeWidth="2"/>
-    {/* Top notch */}
-    <rect x="40" y="80" width="120" height="30" fill="black"/>
-    {/* Label area */}
-    <rect x="55" y="130" width="90" height="50" fill="white" stroke="black" strokeWidth="1.5"/>
-    {/* Metal shutter */}
-    <rect x="60" y="195" width="80" height="15" fill="black"/>
-    {/* Lines on label */}
-    <line x1="65" y1="145" x2="135" y2="145" stroke="black" strokeWidth="1" opacity="0.3"/>
-    <line x1="65" y1="155" x2="135" y2="155" stroke="black" strokeWidth="1" opacity="0.3"/>
-    <line x1="65" y1="165" x2="120" y2="165" stroke="black" strokeWidth="1" opacity="0.3"/>
-    {/* Quote above - hand-drawn style */}
-    <text x="100" y="40" fontSize="16" fontFamily="serif" fontStyle="italic" textAnchor="middle" fill="black">
-      "It belongs in a museum!"
-    </text>
-    {/* Underline */}
-    <path d="M 30 50 Q 100 55 170 50" stroke="black" strokeWidth="1" fill="none"/>
+const VintageComputerGraphic = () => (
+  <svg viewBox="0 0 400 300" className="w-96 h-auto mx-auto mb-8" fill="none" stroke="black" strokeWidth="2.5">
+    {/* Fedora hat */}
+    <ellipse cx="180" cy="130" rx="45" ry="8" fill="none" stroke="black" strokeWidth="2"/>
+    <path d="M 145 130 Q 145 100 180 95 Q 215 100 215 130" fill="none" stroke="black" strokeWidth="2.5"/>
+    <rect x="155" y="105" width="50" height="25" rx="2" fill="none" stroke="black" strokeWidth="2"/>
+    <line x1="160" y1="115" x2="200" y2="115" stroke="black" strokeWidth="1.5"/>
+
+    {/* Whip coiled */}
+    <ellipse cx="185" cy="165" rx="20" ry="6" fill="none" stroke="black" strokeWidth="2"/>
+    <ellipse cx="185" cy="162" rx="15" ry="5" fill="none" stroke="black" strokeWidth="2"/>
+    <ellipse cx="185" cy="159" rx="10" ry="4" fill="none" stroke="black" strokeWidth="2"/>
+    <path d="M 205 165 Q 220 165 225 170 Q 230 175 228 180" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round"/>
+
+    {/* Computer case */}
+    <rect x="230" y="100" width="140" height="180" rx="4" fill="none" stroke="black" strokeWidth="2.5"/>
+
+    {/* Floppy drive - 5.25" */}
+    <rect x="245" y="130" width="110" height="40" fill="none" stroke="black" strokeWidth="2"/>
+    <circle cx="280" cy="150" r="15" fill="white" stroke="black" strokeWidth="2"/>
+    <circle cx="280" cy="150" r="6" fill="black"/>
+    <rect cx="280" cy="142" width="8" height="16" fill="black"/>
+    <path d="M 272 142 L 272 158 L 288 158 L 288 142" fill="black"/>
+    <circle cx="280" cy="150" r="4" fill="white"/>
+    <line x1="330" y1="145" x2="345" y2="145" stroke="black" strokeWidth="1.5"/>
+    <rect x="325" y="155" width="25" height="8" rx="1" fill="none" stroke="black" strokeWidth="1.5"/>
+
+    {/* Power button */}
+    <circle cx="260" cy="260" r="6" fill="none" stroke="black" strokeWidth="2"/>
+    <path d="M 260 255 L 260 260" stroke="black" strokeWidth="2" strokeLinecap="round"/>
+
+    {/* Ventilation slots */}
+    <line x1="340" y1="240" x2="340" y2="265" stroke="black" strokeWidth="1.5"/>
+    <line x1="345" y1="240" x2="345" y2="265" stroke="black" strokeWidth="1.5"/>
+    <line x1="350" y1="240" x2="350" y2="265" stroke="black" strokeWidth="1.5"/>
   </svg>
 );
 
@@ -45,8 +60,11 @@ export default function LandingPage() {
       {/* Main content */}
       <div className="flex-1 flex flex-col items-center justify-center p-6">
         <div className="max-w-3xl w-full text-center">
+          {/* Indiana Jones quote */}
+          <p className="text-2xl md:text-3xl font-bold mb-8">It belongs in a museum!</p>
+
           {/* Indiana Jones style graphic */}
-          <FloppyDiskGraphic />
+          <VintageComputerGraphic />
 
           {/* Logo/Title */}
           <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
