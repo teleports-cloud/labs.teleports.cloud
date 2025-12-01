@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import config, { getCreateSessionUrl, getSessionFilesUrl, getUploadUrl, getTuiUrl } from "../config";
 
 interface FileItem {
   name: string;
@@ -49,8 +50,8 @@ export default function TerminalPage() {
       const now = new Date();
       const minutesSinceActivity = (now.getTime() - lastActivity.getTime()) / (1000 * 60);
 
-      // Show warning at 28 minutes (2 minutes before cleanup)
-      if (minutesSinceActivity >= 28 && !showInactivityWarning) {
+      // Show warning at configured time (2 minutes before cleanup)
+      if (minutesSinceActivity >= config.features.inactivityWarningMinutes && !showInactivityWarning) {
         setShowInactivityWarning(true);
       }
     }, 60000);
@@ -71,12 +72,12 @@ export default function TerminalPage() {
 
     syncIntervalRef.current = setInterval(() => {
       refreshFiles(sessionId);
-    }, 2000);
+    }, config.features.syncIntervalMs);
   }
 
   async function createSession() {
     try {
-      const response = await fetch("https://labs-teleports-cloud.onrender.com/api/session/create", {
+      const response = await fetch(getCreateSessionUrl(), {
         method: "POST",
       });
       const data = await response.json();
@@ -94,9 +95,7 @@ export default function TerminalPage() {
     const currentSessionId = sid || sessionId;
     if (!currentSessionId) return;
     try {
-      const response = await fetch(
-        `https://labs-teleports-cloud.onrender.com/api/session/${currentSessionId}/files`
-      );
+      const response = await fetch(getSessionFilesUrl(currentSessionId));
       const data = await response.json();
       const files = data.files || [];
       setInputFiles(files.filter((f: FileItem) => !f.name.includes('_converted')));
@@ -115,10 +114,11 @@ export default function TerminalPage() {
     setUploadError("");
 
     try {
+      const maxSize = config.features.uploadMaxSizeMB * 1024 * 1024;
       for (const file of Array.from(files)) {
-        // Check file size (50MB limit)
-        if (file.size > 50 * 1024 * 1024) {
-          setUploadError(`File ${file.name} exceeds 50MB limit`);
+        // Check file size
+        if (file.size > maxSize) {
+          setUploadError(`File ${file.name} exceeds ${config.features.uploadMaxSizeMB}MB limit`);
           continue;
         }
 
@@ -140,7 +140,7 @@ export default function TerminalPage() {
           op.id === operationId ? { ...op, progress: 50 } : op
         ));
 
-        const response = await fetch("https://labs-teleports-cloud.onrender.com/api/upload", {
+        const response = await fetch(getUploadUrl(), {
           method: "POST",
           body: formData,
           credentials: "include",
@@ -327,7 +327,7 @@ export default function TerminalPage() {
       {/* TUI Main Pane */}
       <div className="flex-1">
         <iframe
-          src="https://labs-teleports-cloud.onrender.com"
+          src={getTuiUrl()}
           className="w-full h-full border-0"
           title="Historic Format Viewer TUI"
         />

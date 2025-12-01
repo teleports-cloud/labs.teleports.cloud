@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useRef } from "react";
 import Image from "next/image";
+import config, { getCreateSessionUrl, getUploadUrl } from "../config";
 
 const SUPPORTED_FORMATS = [
   { name: "SmartWare II", ext: ".ws", era: "1980s-1990s" },
@@ -21,7 +22,7 @@ export default function LandingPage() {
 
     try {
       // Create session first
-      const sessionResponse = await fetch("https://labs-teleports-cloud.onrender.com/api/session/create", {
+      const sessionResponse = await fetch(getCreateSessionUrl(), {
         method: "POST",
       });
       const sessionData = await sessionResponse.json();
@@ -31,16 +32,17 @@ export default function LandingPage() {
       document.cookie = `session_id=${sessionId}; path=/`;
 
       // Upload files
+      const maxSize = config.features.uploadMaxSizeMB * 1024 * 1024;
       for (const file of Array.from(files)) {
-        if (file.size > 50 * 1024 * 1024) {
-          console.error(`File ${file.name} exceeds 50MB limit`);
+        if (file.size > maxSize) {
+          console.error(`File ${file.name} exceeds ${config.features.uploadMaxSizeMB}MB limit`);
           continue;
         }
 
         const formData = new FormData();
         formData.append("file", file);
 
-        await fetch("https://labs-teleports-cloud.onrender.com/api/upload", {
+        await fetch(getUploadUrl(), {
           method: "POST",
           body: formData,
           credentials: "include",
