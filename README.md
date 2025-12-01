@@ -136,12 +136,27 @@ See `dist/SMARTWARE_FORMAT_SPECIFICATION.txt` for complete reverse-engineered fo
 
 ## 🚀 Deployment
 
+### Continuous Integration (CircleCI)
+This project uses CircleCI for automated builds and deployments.
+
+**Pipeline**: Validates → Builds → Tests → Deploys (main branch only)
+
+See `CIRCLECI_SETUP.md` for complete setup guide.
+
+```bash
+# Setup CircleCI
+./setup-circleci.sh
+
+# Validate config
+circleci config validate
+```
+
 ### Web App (Vercel)
-Already deployed! See `DEPLOYMENT_COMPLETE.md` for details.
+Already deployed! Automatic deployments via CircleCI on `main` branch.
 
 **Production**: https://web-ie4n3zkjc-buck-chanceys-projects.vercel.app
 
-### Redeploy
+### Manual Redeploy
 ```bash
 vercel --prod
 ```

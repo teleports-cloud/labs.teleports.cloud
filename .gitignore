@@ -64,3 +64,6 @@ pnpm-debug.log*
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# CircleCI
+.circleci/local-cli/
