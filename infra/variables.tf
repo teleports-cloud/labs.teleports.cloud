@@ -1,19 +1,17 @@
 variable "vercel_team_id" {
   description = "Vercel team ID (orgId from .vercel/project.json)"
   type        = string
-  default     = "team_ukOUCjpIguZVPwMTYcvObu4n"
 }
 
 variable "vercel_project_id" {
   description = "Existing Vercel project ID"
   type        = string
-  default     = "prj_A9oY7UnBUFrE41MOboCq4y1ryH30"
 }
 
 variable "github_repo" {
   description = "GitHub repository name (e.g., username/repo) - Now pointing to the mirrored repo"
   type        = string
-  default     = "roland-id-au/labs.teleports.cloud"
+  default     = "teleports-cloud/labs.teleports.cloud"
 }
 
 variable "vercel_root_domain" {
