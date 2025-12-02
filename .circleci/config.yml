@@ -1,179 +1,45 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/reference/configuration-reference
+
+# For a detailed guide to building and testing with Python, read the docs:
+# https://circleci.com/docs/language-python/ for more details
 version: 2.1
 
+# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
+# See: https://circleci.com/docs/orbs/use/orb-intro/
 orbs:
-  node: circleci/node@5.2.0
+  # See the Python orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
   python: circleci/python@2.1.1
 
-# Define contexts for environment variables
-# Set these in CircleCI Project Settings > Contexts:
-# - deployment-secrets: VERCEL_TOKEN, VERCEL_PROJECT_ID, VERCEL_TEAM_ID, RENDER_API_KEY, RENDER_DEPLOY_HOOK_ID
-
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/guides/orchestrate/jobs-steps/#jobs-overview & https://circleci.com/docs/reference/configuration-reference/#jobs
 jobs:
-  # Validate configuration using CircleCI CLI
-  validate_config:
+  build-and-test:
+    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/guides/execution-managed/executor-intro/ & https://circleci.com/docs/reference/configuration-reference/#executor-job
     docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-      - run:
-          name: Install CircleCI CLI
-          command: |
-            curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/main/install.sh | bash
-      - run:
-          name: Validate CircleCI Config
-          command: |
-            circleci config validate
+      # Specify the version you desire here
+      # See:https://circleci.com/developer/images/image/cimg/python
+      - image: cimg/python:3.12
 
-  # Build and test frontend
-  build_frontend:
-    docker:
-      - image: cimg/node:20.11
-    working_directory: ~/project
+    # Add steps to the job
+    # See: https://circleci.com/docs/guides/orchestrate/jobs-steps/#steps-overview & https://circleci.com/docs/reference/configuration-reference/#steps
     steps:
+      # Checkout the code as the first step.
       - checkout
-      - restore_cache:
-          keys:
-            - pnpm-packages-{{ checksum "apps/web/package.json" }}
-            - pnpm-packages-
+      - python/install-packages:
+          pkg-manager: pip
+          # app-dir: ~/project/package-directory/  # If your requirements.txt isn't in the root directory.
+          # pip-dependency-file: test-requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
       - run:
-          name: Install pnpm
-          command: npm install -g pnpm@8
-      - run:
-          name: Install Dependencies
-          command: pnpm install --frozen-lockfile
-          working_directory: apps/web
-      - save_cache:
-          key: pnpm-packages-{{ checksum "apps/web/package.json" }}
-          paths:
-            - ~/.pnpm-store
-      - run:
-          name: Lint Frontend
-          command: pnpm lint
-          working_directory: apps/web
-      - run:
-          name: Type Check
-          command: pnpm type-check
-          working_directory: apps/web
-      - run:
-          name: Stamp build with commit hash
-          command: echo "export NEXT_PUBLIC_COMMIT_HASH=$(git rev-parse --short HEAD)" >> $BASH_ENV
-      - run:
-          name: Build Frontend
-          command: pnpm build
-          working_directory: apps/web
-          environment:
-            NEXT_PUBLIC_COMMIT_HASH: ${NEXT_PUBLIC_COMMIT_HASH}
-      - persist_to_workspace:
-          root: .
-          paths:
-            - apps/web/.next
-            - apps/web/node_modules
+          name: Run tests
+          # This assumes pytest is installed via the install-package step above
+          command: pytest
 
-  # Deploy frontend to Vercel
-  deploy_frontend:
-    docker:
-      - image: cimg/node:20.11
-    working_directory: ~/project
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run:
-          name: Install Vercel CLI
-          command: npm install -g vercel
-      - run:
-          name: Deploy to Vercel
-          command: |
-            cd apps/web
-            vercel pull --yes --environment=production --token=${VERCEL_TOKEN}
-            vercel build --prod --token=${VERCEL_TOKEN}
-            vercel deploy --prebuilt --prod --token=${VERCEL_TOKEN}
-
-  # Build and test backend
-  build_backend:
-    docker:
-      - image: cimg/python:3.11
-    working_directory: ~/project
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - python-deps-{{ checksum "apps/python/requirements.txt" }}
-            - python-deps-
-      - run:
-          name: Install Dependencies
-          command: |
-            python -m venv venv
-            . venv/bin/activate
-            pip install --upgrade pip
-            pip install -r requirements.txt
-          working_directory: apps/python
-      - save_cache:
-          key: python-deps-{{ checksum "apps/python/requirements.txt" }}
-          paths:
-            - apps/python/venv
-      - run:
-          name: Check Python Syntax
-          command: |
-            . venv/bin/activate
-            python -m py_compile *.py
-          working_directory: apps/python
-      - persist_to_workspace:
-          root: .
-          paths:
-            - apps/python/venv
-
-  # Deploy backend to Render
-  deploy_backend:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-      - run:
-          name: Trigger Render Deploy
-          command: |
-            if [ -z "${RENDER_DEPLOY_HOOK_ID}" ]; then
-              echo "RENDER_DEPLOY_HOOK_ID not set. Skipping Render deployment."
-              exit 0
-            fi
-            curl -X POST \
-              -H "Accept: application/json" \
-              -H "Authorization: Bearer ${RENDER_API_KEY}" \
-              "https://api.render.com/deploy/${RENDER_DEPLOY_HOOK_ID}"
-
+# Orchestrate jobs using workflows
+# See: https://circleci.com/docs/guides/orchestrate/workflows/ & https://circleci.com/docs/reference/configuration-reference/#workflows
 workflows:
-  # Main build and deploy workflow
-  build_and_deploy:
+  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
     jobs:
-      # Validate config first
-      - validate_config
-      
-      # Build both frontend and backend in parallel
-      - build_frontend:
-          requires:
-            - validate_config
-      - build_backend:
-          requires:
-            - validate_config
-      
-      # Deploy frontend after successful build
-      - deploy_frontend:
-          requires:
-            - build_frontend
-          context:
-            - deployment-secrets
-          filters:
-            branches:
-              only:
-                - main
-      
-      # Deploy backend after successful build
-      - deploy_backend:
-          requires:
-            - build_backend
-          context:
-            - deployment-secrets
-          filters:
-            branches:
-              only:
-                - main
+      - build-and-test
