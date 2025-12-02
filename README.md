@@ -241,3 +241,5 @@ MIT License
 **Deployment**: Live on Vercel
 
 🎉 **30-year-old data successfully recovered and modernized!**
+
+<!-- Dummy commit to trigger CI/CD for badge updates - 2025-12-02 -->
